@@ -48,9 +48,9 @@ get_user_input() {
  Function to verify Elasticsearch connection
 verify_connection() {
   if [ "$auth_choice" == "u" ]; then
-    response=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" --user "$username:$password" -XGET "$url")
+    response=$(curl -k --silent --write-out "HTTPSTATUS:%{http_code}" --user "$username:$password" -XGET "$url")
   elif [ "$auth_choice" == "a" ]; then
-    response=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" -H "Authorization: ApiKey $api_key" -XGET "$url")
+    response=$(curl -k --silent --write-out "HTTPSTATUS:%{http_code}" -H "Authorization: ApiKey $api_key" -XGET "$url")
   fi
 
   http_status=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
@@ -101,9 +101,9 @@ upload_template() {
   echo "Target API endpoint: $url/$api"
 
   if [ "$auth_choice" == "u" ]; then
-    response=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" --user "$username:$password" -XPUT "$url/$api" --header "Content-Type: application/json" -d @"$file")
+    response=$(curl -k --silent --write-out "HTTPSTATUS:%{http_code}" --user "$username:$password" -XPUT "$url/$api" --header "Content-Type: application/json" -d @"$file")
   elif [ "$auth_choice" == "a" ]; then
-    response=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" -H "Authorization: ApiKey $api_key" -XPUT "$url/$api" --header "Content-Type: application/json" -d @"$file")
+    response=$(curl -k --silent --write-out "HTTPSTATUS:%{http_code}" -H "Authorization: ApiKey $api_key" -XPUT "$url/$api" --header "Content-Type: application/json" -d @"$file")
   fi
 
   http_status=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
