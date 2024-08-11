@@ -224,7 +224,7 @@ Firewalls are very chatty, so it may overwhelm buffers on your syslog collector,
 
 Depending on your Events per Second (EPS) volume, you may need to increase performance tuning settings even further.
 
-- Run `watch -d "column -t cat /proc/net/snmp | grep -w Udp"` on your Elastic Agent host to check if you are dropping any logs.
+- Run `watch -d 'cat /proc/net/snmp | grep -w Udp | column -t'` on your Elastic Agent host to check if you are dropping any logs.
 
 **Hopefully you should be dancing with your logs by now.** 🕺💃
 
